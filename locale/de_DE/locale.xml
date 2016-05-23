@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * @file plugins/generic/simplifyWorkflow/locale/de_DE/locale.xml
+  *
+  * Copyright (c) 2016 Language Science Press
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Localization strings for this plugin.
+  *
+  -->
+
+<locale name="de_DE" full_name="German">
+
+	<message key="plugins.generic.simplifyWorkflow.displayName">Simplify Workflow Plugin</message>
+	<message key="plugins.generic.simplifyWorkflow.description">Eine Reihe kleinerer Veränderungen, um die Workflow zu vereinfachen.</message>
+
+</locale>

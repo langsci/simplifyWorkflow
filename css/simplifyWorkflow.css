@@ -1,0 +1,53 @@
+/*
+  * @file plugins/generic/simplifyWorkflow/css/simplifyWorkflow.css
+  *
+  * Copyright (c) 2016 Language Science Press
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Style sheets to simplify the workflow
+  *
+*/
+
+/* do not display discussion grids */
+#queriesGrid {
+	display:none !important;
+	/*background-color: yellow;*/
+}
+
+/* do not display discussion section PM's view and in the authorDashboard */
+#queriesGridDiv {
+	display:none !important;
+}
+
+/* do not display publication format discussion section in author dashboard */
+#representationTabs {
+	display:none !important;
+}
+
+/* do not display 'Send to internal review' button */
+.pkp_linkaction_internalReview {
+	display:none !important;
+	/* color: red !important; */
+}
+
+/* do not display section for production ready files */
+#productionReadyFilesGridDiv {
+	display:none !important;
+}
+
+/* do not display file selection in the form when going from one stage to another*/
+#filesToPromoteGrid {
+	display:none !important;
+}
+
+/* do not display "Reviewer's attachments"*/
+#promote #attachments {
+	display:none !important;
+}
+
+/* do not display the internal review tab */
+.pkp_workflow_internalReview {
+	display:none !important;
+}
+
+
