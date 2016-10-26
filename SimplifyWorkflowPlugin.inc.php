@@ -31,10 +31,8 @@ class SimplifyWorkflowPlugin extends GenericPlugin {
 				HookRegistry::register ('addparticipantform::Constructor', array(&$this, 'handleAddParticipantForm'));
 				HookRegistry::register ('submissionfilesuploadform::Constructor', array(&$this,
 										'handleSubmissionFilesUploadForm')); 
-				HookRegistry::register ('catalogentrycatalogmetadataform::Constructor', array(&$this,
-										'handleCatalogEntryForm'));
-				HookRegistry::register ('catalogentryformatmetadataform::Constructor', array(&$this,
-										'handlePublicationEntryForm'));
+				HookRegistry::register ('catalogentrycatalogmetadataform::Constructor', array(&$this,'handleCatalogEntryForm'));
+				HookRegistry::register ('catalogentryformatmetadataform::Constructor', array(&$this,'handlePublicationEntryForm'));
 
 				// control database action
 				HookRegistry::register ('eventlogdao::_insertobject', array(&$this, 'handleInsertObject'));
@@ -60,7 +58,7 @@ class SimplifyWorkflowPlugin extends GenericPlugin {
 
 			case 'workflow/workflow.tpl':	
 				// include simplifyWorkflow.css
-				$templateMgr->display($this->getTemplatePath() . 
+			$templateMgr->display($this->getTemplatePath() . 
 				'workflowModified.tpl', 'text/html', 'TemplateManager::display');
 				return true;
 			case 'authorDashboard/authorDashboard.tpl':	
@@ -125,7 +123,7 @@ class SimplifyWorkflowPlugin extends GenericPlugin {
 	}
 
 	function handlePublicationEntryForm($hookName, $args) {
-		// commenting out Market territories, digital information, sales right
+		// commenting out Market territories, digital information, sales right in publication format tabs
 		// commenting out imprint (value is set via the db in function handleAssignEditors)
 		// product availability set to "20" (available) and made invisible
 		// product compostition code set to "00" (single item retail product) and made insivible
@@ -142,6 +140,7 @@ class SimplifyWorkflowPlugin extends GenericPlugin {
 
 		if ($message=='submission.event.fileUploaded') {
 			// terms (sales_type) of all submissions are to set to open "access"
+			// in production stage -> publication formats -> uploaded files
 			// direct_sales of all submissions are set to 0
 			$simplifyWorkflowDAO = new SimplifyWorkflowDAO();
 			$simplifyWorkflowDAO->setTermsToOpenAcess();

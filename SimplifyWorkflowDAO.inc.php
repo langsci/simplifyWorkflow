@@ -53,7 +53,7 @@ class SimplifyWorkflowDAO extends DAO {
 			return null;
 		} else {
 			$row = $result->getRowAssoc(false);
-			$userGroupId = $this->convertFromDB($row['user_group_id']);				 
+			$userGroupId = $this->convertFromDB($row['user_group_id'],null);				 
 			$result->Close();
 			return $userGroupId;
 		}
@@ -77,7 +77,7 @@ class SimplifyWorkflowDAO extends DAO {
 			$users = array();
 			while (!$result->EOF) {
 				$row = $result->getRowAssoc(false);
-				$users[$rownr] = $this->convertFromDB($row['user_id']);
+				$users[$rownr] = $this->convertFromDB($row['user_id'],null);
 				$rownr = $rownr + 1;				 
 				$result->MoveNext();
 			}
@@ -100,7 +100,7 @@ class SimplifyWorkflowDAO extends DAO {
 			$users = array();
 			while (!$result->EOF) {
 				$row = $result->getRowAssoc(false);
-				$users[$rownr] = $this->convertFromDB($row['user_id']);
+				$users[$rownr] = $this->convertFromDB($row['user_id'],null);
 				$rownr = $rownr + 1;				 
 				$result->MoveNext();
 			}
@@ -125,7 +125,7 @@ class SimplifyWorkflowDAO extends DAO {
 			return null;
 		} else {
 			$row = $result->getRowAssoc(false);
-			$editedVolume = $this->convertFromDB($row['edited_volume']);
+			$editedVolume = $this->convertFromDB($row['edited_volume'],null);
 			$result->Close();
 		}
 
@@ -165,7 +165,7 @@ class SimplifyWorkflowDAO extends DAO {
 		} else {
 			while (!$results->EOF) {
 				$row = $results->getRowAssoc(false);
-				$publicationFormatIds[] = $this->convertFromDB($row['publication_format_id']);
+				$publicationFormatIds[] = $this->convertFromDB($row['publication_format_id'],null);
 				$results->MoveNext();
 			}
 			$results->Close();

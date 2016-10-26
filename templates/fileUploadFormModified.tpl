@@ -178,11 +178,13 @@
 				{fbvElement type="select" name="revisedFileId" id="revisedFileId" from=$submissionFileOptions selected=$revisedFileId translate=false}
 			{/fbvFormSection}
 		{/if}
-
+		
 		{if $showGenreSelector}
 			{fbvFormSection title="submission.upload.fileContents" required=true}
 				{translate|assign:"defaultLabel" key="submission.upload.selectComponent"}
-				{fbvElement type="select" name="genreId" id="genreId" from=$submissionFileGenres translate=false defaultLabel=$defaultLabel defaultValue="" required="true" selected=$genreId}
+				{fbvElement type="select" name="genreId" id="genreId" 
+				from=$submissionFileGenres translate=false defaultLabel=$defaultLabel defaultValue="" 
+				required="true" selected=3}  {** LangSci: set default value to Book Manuscript **}
 			{/fbvFormSection}
 		{/if}
 
@@ -203,34 +205,3 @@
 </form>
 <p><span class="formRequired">{translate key="common.requiredField"}</span></p>
 {/if}
-
-{** langsci: Code zum Setzen der Vorauswahl und zum Auslösen des change-Events, damit der upload-Button enabled wird **}
-<script type="text/javascript">
-
-	{literal}
-
-		function raiseEvent (eventType, elementID)
-		{ 
-    		var o = document.getElementById(elementID); 
-    		if (document.createEvent) { 
-        		var evt = document.createEvent("Events"); 
-        		evt.initEvent(eventType, true, true); 
-        		o.dispatchEvent(evt); 
-    		} 
-    		else if (document.createEventObject) 
-    		{
-        		var evt = document.createEventObject(); 
-        		o.fireEvent('on' + eventType, evt); 
-    		} 
-    		o = null;
-		} 
-
-		document.getElementById("genreId").selectedIndex = "3";
-		raiseEvent('change', 'genreId');
-
-	{/literal}
-
-</script>
-
-
-

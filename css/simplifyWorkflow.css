@@ -9,25 +9,27 @@
 */
 
 /* do not display discussion grids */
+/*
 #queriesGrid {
 	display:none !important;
-	/*background-color: yellow;*/
-}
+	/*background-color: yellow;
+}*/
 
 /* do not display discussion section PM's view and in the authorDashboard */
+/*
 #queriesGridDiv {
 	display:none !important;
-}
+}*/
 
 /* do not display publication format discussion section in author dashboard */
+/*
 #representationTabs {
 	display:none !important;
-}
+}*/
 
 /* do not display 'Send to internal review' button */
 .pkp_linkaction_internalReview {
 	display:none !important;
-	/* color: red !important; */
 }
 
 /* do not display section for production ready files */
