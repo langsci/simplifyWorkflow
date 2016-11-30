@@ -136,7 +136,7 @@ class SimplifyWorkflowPlugin extends GenericPlugin {
 
 		$sql =& $args[0]; 
 		$parameters =& $args[1];
-		$message = $parameters[5];
+		$message = ''; if (isset($parameters[5])) {$message =$parameters[5];} 
 
 		if ($message=='submission.event.fileUploaded') {
 			// terms (sales_type) of all submissions are to set to open "access"
@@ -151,14 +151,15 @@ class SimplifyWorkflowPlugin extends GenericPlugin {
 
 	function handleAssignEditors($hookName, $args) {
 
+		// series editors are now assigned by OMP -> not necessary anymore
 		$submissionId = $args[0]->submissionId;
 		$contextId = $this->getRequest()->getContext()->getId();
 
 		$simplifyWorkflowDAO = new SimplifyWorkflowDAO;
  		$pressManagerId = $simplifyWorkflowDAO->getRoleId("Press Manager",$contextId);
- 		$seriesEditorId = $simplifyWorkflowDAO->getRoleId("Series Editor",$contextId);
+ 		//$seriesEditorId = $simplifyWorkflowDAO->getRoleId("Series Editor",$contextId);
 
-		$seriesEditors = $simplifyWorkflowDAO->getSeriesEditors($submissionId,$contextId);
+		//$seriesEditors = $simplifyWorkflowDAO->getSeriesEditors($submissionId,$contextId);
 		$pressManagers = $simplifyWorkflowDAO->getPressManagers($contextId);
  
 		// assign a press manager as soon as a book is submitted
@@ -167,16 +168,21 @@ class SimplifyWorkflowPlugin extends GenericPlugin {
 
 		if (in_array($preferedPressManagerId,$pressManagers)) {
 			$simplifyWorkflowDAO->assignParticipant($submissionId,$pressManagerId,$preferedPressManagerId);
-		} else {
+		}
+		// not necessary anymore, OMP does it by itself
+		/* 
+		else {
 			if (sizeof($pressManagers)>0) {
 				$simplifyWorkflowDAO->assignParticipant($submissionId,$pressManagerId,$pressManagers[0]);
 			}
 		}
+		*/
 
 		// assign all series editors of the series the submission is put in
-		for ($i=0; $i<sizeof($seriesEditors); $i++) {
+		// not necessary anymore: OMP does it by itself
+		/*for ($i=0; $i<sizeof($seriesEditors); $i++) {
 			$simplifyWorkflowDAO->assignParticipant($submissionId,$seriesEditorId,$seriesEditors[$i]);
-		}
+		}*/
 	
 		// add standard values:
 		// publication format: names, digital, physical_format, composition code:00
