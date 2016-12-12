@@ -38,8 +38,7 @@ class SimplifyWorkflowPlugin extends GenericPlugin {
 				HookRegistry::register ('eventlogdao::_insertobject', array(&$this, 'handleInsertObject'));
 
 				// action at the end of the submission process
-				HookRegistry::register('submissionsubmitstep3form::validate', array(&$this, 'handleAssignEditors'));
-
+				HookRegistry::register('submissionsubmitstep4form::validate', array(&$this, 'handleAssignEditors'));
 			}
 			return true;
 		}
