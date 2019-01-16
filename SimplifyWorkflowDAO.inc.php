@@ -188,18 +188,18 @@ class SimplifyWorkflowDAO extends DAO {
 			$this->update("INSERT INTO publication_format_settings
 					VALUES(".$publicationFormatIds[6].",'en_US','name','Chapter 5','string')");
 			$this->update("INSERT INTO publication_format_settings
-					VALUES(".$publicationFormatIds[7].",'en_US','name','Hardcover','string')");
+					VALUES(".$publicationFormatIds[7].",'en_US','name','Buy from amazon.de','string')");
 			$this->update("INSERT INTO publication_format_settings
-					VALUES(".$publicationFormatIds[8].",'en_US','name','Softcover','string')");
+					VALUES(".$publicationFormatIds[8].",'en_US','name','Buy from amazon.co.uk','string')");
 			$this->update("INSERT INTO publication_format_settings
-					VALUES(".$publicationFormatIds[9].",'en_US','name','Softcover US','string')");
+					VALUES(".$publicationFormatIds[9].",'en_US','name','Buy from amazon.com','string')");
 		} else {
 			$this->update("INSERT INTO publication_format_settings
-					VALUES(".$publicationFormatIds[2].",'en_US','name','Hardcover','string')");
+					VALUES(".$publicationFormatIds[2].",'en_US','name','Buy from amazon.de','string')");
 			$this->update("INSERT INTO publication_format_settings
-					VALUES(".$publicationFormatIds[3].",'en_US','name','Softcover','string')");
+					VALUES(".$publicationFormatIds[3].",'en_US','name','Buy from amazon.co.uk','string')");
 			$this->update("INSERT INTO publication_format_settings
-					VALUES(".$publicationFormatIds[4].",'en_US','name','Softcover US','string')");
+					VALUES(".$publicationFormatIds[4].",'en_US','name','Buy from amazon.com','string')");
 
 		}
 	}
