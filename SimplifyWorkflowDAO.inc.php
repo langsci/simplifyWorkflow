@@ -110,16 +110,15 @@ class SimplifyWorkflowDAO extends DAO {
 	}
 
 	// add publication format: PDF, digital, physical_format
-	// add PDF and Bibliography and five Chapter for Edited Volumes
+	// add PDF and Bibliography and 20 chapters for Edited Volumes
 	function addStandardValuesAfterSubmit($submission_id) {
 
 		// is the submission an edited volume?
+		$editedVolume = 2;
 		$result = $this->retrieve(
 			'SELECT edited_volume from submissions
 			 WHERE submission_id = '.$submission_id
 		);
- 	
-		$editedVolume = 2;
 		if ($result->RecordCount() == 0) {
 			$result->Close();
 			return null;
@@ -132,32 +131,32 @@ class SimplifyWorkflowDAO extends DAO {
 		// insert digital publication formats for the submission
 		$numberOfDigitalFormats = 2;
 		if ($editedVolume==1) {
-			$numberOfDigitalFormats = 7;
+			$numberOfDigitalFormats = 22;
 		}
+
 		for ($i=0; $i<$numberOfDigitalFormats; $i++) {
 			$this->update('INSERT INTO publication_formats(submission_id, physical_format, entry_key,
 						   product_composition_code,is_available,imprint)
 						   VALUES('.$submission_id.',0, "DA","00",1,"Language Science Press")');			
 		}
 
-		// insert hardcover format
+		// insert 1 hardcover format for the submission
 		$this->update('INSERT INTO publication_formats(submission_id, physical_format, entry_key,
 						   product_composition_code,is_available,imprint)
 						   VALUES('.$submission_id.',1, "BB","00",1,"Language Science Press")');
 
-		// insert softcover format
+		// insert 2 softcover formats for the submission
 		for ($i=0; $i<2; $i++) {
 		$this->update('INSERT INTO publication_formats(submission_id, physical_format, entry_key,
 						   product_composition_code,is_available,imprint)
 						   VALUES('.$submission_id.',1, "BC","00",1,"Language Science Press")');
 		}
 
-		// get publication format ids
+		// get publication format ids of that submission
 		$results = $this->retrieve(
 			'SELECT publication_format_id FROM publication_formats
-			 WHERE submission_id = '.$submission_id
+			 WHERE submission_id = '.$submission_id .' order by publication_format_id'
 		);
-
 		$publicationFormatIds = array();
 		if ($results->RecordCount() == 0) {
 			$results->Close();
@@ -171,37 +170,29 @@ class SimplifyWorkflowDAO extends DAO {
 			$results->Close();
 		}
 
-		// add names to the publication formats
+		// add names to the digital publication formats (table publication_format_settings);
 		$this->update("INSERT INTO publication_format_settings
 				VALUES(".$publicationFormatIds[0].",'en_US','name','PDF','string')");
 		$this->update("INSERT INTO publication_format_settings
 				VALUES(".$publicationFormatIds[1].",'en_US','name','Bibliography','string')");
-		if ($editedVolume==1) {
-			$this->update("INSERT INTO publication_format_settings
-					VALUES(".$publicationFormatIds[2].",'en_US','name','Chapter 1','string')");
-			$this->update("INSERT INTO publication_format_settings
-					VALUES(".$publicationFormatIds[3].",'en_US','name','Chapter 2','string')");
-			$this->update("INSERT INTO publication_format_settings
-					VALUES(".$publicationFormatIds[4].",'en_US','name','Chapter 3','string')");
-			$this->update("INSERT INTO publication_format_settings
-					VALUES(".$publicationFormatIds[5].",'en_US','name','Chapter 4','string')");
-			$this->update("INSERT INTO publication_format_settings
-					VALUES(".$publicationFormatIds[6].",'en_US','name','Chapter 5','string')");
-			$this->update("INSERT INTO publication_format_settings
-					VALUES(".$publicationFormatIds[7].",'en_US','name','Buy from amazon.de','string')");
-			$this->update("INSERT INTO publication_format_settings
-					VALUES(".$publicationFormatIds[8].",'en_US','name','Buy from amazon.co.uk','string')");
-			$this->update("INSERT INTO publication_format_settings
-					VALUES(".$publicationFormatIds[9].",'en_US','name','Buy from amazon.com','string')");
-		} else {
-			$this->update("INSERT INTO publication_format_settings
-					VALUES(".$publicationFormatIds[2].",'en_US','name','Buy from amazon.de','string')");
-			$this->update("INSERT INTO publication_format_settings
-					VALUES(".$publicationFormatIds[3].",'en_US','name','Buy from amazon.co.uk','string')");
-			$this->update("INSERT INTO publication_format_settings
-					VALUES(".$publicationFormatIds[4].",'en_US','name','Buy from amazon.com','string')");
 
+		if ($editedVolume==1) {
+			for ($chapter = 0; $chapter < 20; $chapter++) {
+				$chapterNr = $chapter+1;
+				$chapterName = 'Chapter '.$chapterNr;
+				$this->update("INSERT INTO publication_format_settings
+					VALUES(".$publicationFormatIds[2+$chapter].",'en_US','name','".$chapterName."','string')");
+			}
 		}
+
+		// add names to the print publication formats
+		$this->update("INSERT INTO publication_format_settings
+				VALUES(".$publicationFormatIds[$numberOfDigitalFormats].",'en_US','name','Buy from amazon.de','string')");
+		$this->update("INSERT INTO publication_format_settings
+				VALUES(".$publicationFormatIds[$numberOfDigitalFormats+1].",'en_US','name','Buy from amazon.co.uk','string')");
+		$this->update("INSERT INTO publication_format_settings
+				VALUES(".$publicationFormatIds[$numberOfDigitalFormats+2].",'en_US','name','Buy from amazon.com','string')");
+
 	}
 }
 
